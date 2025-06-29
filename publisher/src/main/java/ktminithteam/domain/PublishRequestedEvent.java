@@ -1,7 +1,6 @@
 package ktminithteam.domain;
 
 import java.util.*;
-import ktminithteam.domain.*;
 import ktminithteam.infra.AbstractEvent;
 import lombok.*;
 
@@ -9,8 +8,9 @@ import lombok.*;
 @ToString
 public class PublishRequestedEvent extends AbstractEvent {
 
-    private Long bookId;
+    private Long manuscriptId;
     private Long authorId;
     private String title;
+    private String content;
     private Date requestedAt;
 }

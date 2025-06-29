@@ -21,24 +21,25 @@ public class Publish {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long publishId;
 
-    private Long bookId;
+    private Long manuscriptId;
 
-    private Boolean isAccept;
+    private Long authorId;
+
+    private String title;
+
+    private String content;
+
+    private String category;
 
     private String summaryUrl;
 
     private String coverUrl;
 
-    private String content;
-
-    private Date createdAt;
-
-    private String category;
-
     private Long cost;
 
-    private String title;
+    private Boolean isAccept;
 
+    // 불필요
     @PreUpdate
     public void onPreUpdate() {
         BookPublished bookPublished = new BookPublished(this);
