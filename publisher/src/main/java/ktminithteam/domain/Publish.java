@@ -39,12 +39,6 @@ public class Publish {
 
     private Boolean isAccept;
 
-    // 불필요
-    @PreUpdate
-    public void onPreUpdate() {
-        BookPublished bookPublished = new BookPublished(this);
-        bookPublished.publishAfterCommit();
-    }
 
     public static PublishRepository repository() {
         PublishRepository publishRepository = PublisherApplication.applicationContext.getBean(
