@@ -1,12 +1,3 @@
-package ktminithteam.domain;
-
-import javax.persistence.*;
-import ktminithteam.PointApplication;
-import ktminithteam.infra.AbstractEvent;
-import lombok.Data;
-
-import java.time.LocalDate;
-
 @Entity
 @Table(name = "Point_table")
 @Data
@@ -17,31 +8,36 @@ public class Point {
     private Long id;
 
     private Long subscriberId;
+
     private Integer point;
+
     private Boolean hasSubscriptionTicket;
+
     private LocalDate subscriptionTicketExpirationDate;
 
     public static PointRepository repository() {
-        return PointApplication.applicationContext.getBean(PointRepository.class);
+        PointRepository pointRepository = PointApplication.applicationContext.getBean(
+            PointRepository.class
+        );
+        return pointRepository;
     }
 
     /**
      * 회원가입 시 포인트 지급 / KT 회원 인증 시 5000 추가 지급
      */
     public static void 포인트지급(SignedUp signedUp) {
-    Point point = new Point();
-    point.setSubscriberId(signedUp.getId());
+        Point point = new Point();
+        point.setSubscriberId(signedUp.getId());
 
-    int basePoint = 1000;
-    if ("KT".equalsIgnoreCase(signedUp.getTelecom())) {
-        basePoint += 5000;
+        int basePoint = 1000;
+        if ("KT".equalsIgnoreCase(signedUp.getTelecom())) {
+            basePoint += 5000;
+        }
+
+        point.setPoint(basePoint);
+        point.setHasSubscriptionTicket(false);
+        repository().save(point);
     }
-
-    point.setPoint(basePoint);
-    point.setHasSubscriptionTicket(false);
-    repository().save(point);
-}
-
 
     /**
      * 구독 요청 시 포인트 차감 및 구독권 발급 처리
@@ -49,7 +45,7 @@ public class Point {
     public static void requestSubscribe(RequestSubscribed request) {
         repository().findBySubscriberId(request.getSubscriberId()).ifPresent(point -> {
             if (point.getPoint() >= request.getCost()) {
-                point.setPoint((int)(point.getPoint() - request.getCost()));
+                point.setPoint(point.getPoint() - request.getCost().intValue());
                 point.setHasSubscriptionTicket(true);
                 point.setSubscriptionTicketExpirationDate(LocalDate.now().plusDays(30));
                 repository().save(point);

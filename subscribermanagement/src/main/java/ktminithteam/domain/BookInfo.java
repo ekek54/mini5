@@ -8,18 +8,13 @@ import lombok.Data;
 
 //<<< EDA / CQRS
 @Entity
-@Table(name = "PublishBook_table")
+@Table(name = "BookInfo_table")
 @Data
-public class PublishBook {
+public class BookInfo {
 
     @Id
     //@GeneratedValue(strategy=GenerationType.AUTO)
-    private Long publishId;
-    private Long authorId;
-    private String title;
-    private String content;
-    private String summaryUrl;
-    private String coverUrl;
-    private String category;
+    private Long id;
+
     private Long cost;
 }

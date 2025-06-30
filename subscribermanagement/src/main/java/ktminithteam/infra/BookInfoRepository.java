@@ -5,9 +5,6 @@ import ktminithteam.domain.*;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
-@RepositoryRestResource(
-    collectionResourceRel = "subscribeBooks",
-    path = "subscribeBooks"
-)
-public interface SubscribeBookRepository
-    extends PagingAndSortingRepository<SubscribeBook, Long> {}
+@RepositoryRestResource(collectionResourceRel = "bookInfos", path = "bookInfos")
+public interface BookInfoRepository
+    extends PagingAndSortingRepository<BookInfo, Long> {}

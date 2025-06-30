@@ -1,19 +1,13 @@
 package ktminithteam.domain;
 
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.List;
-import javax.persistence.*;
+import java.util.*;
+import ktminithteam.infra.AbstractEvent;
 import lombok.Data;
 
-//<<< EDA / CQRS
-@Entity
-@Table(name = "PublishBook_table")
 @Data
-public class PublishBook {
+public class BookPublished extends AbstractEvent {
 
-    @Id
-    //@GeneratedValue(strategy=GenerationType.AUTO)
     private Long publishId;
     private Long authorId;
     private String title;
