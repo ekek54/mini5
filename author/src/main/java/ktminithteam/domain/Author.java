@@ -22,7 +22,8 @@ public class Author {
 
     private String name;
 
-    private String email;
+    @Embedded
+    private Email email;
 
     private String introduction;
 
