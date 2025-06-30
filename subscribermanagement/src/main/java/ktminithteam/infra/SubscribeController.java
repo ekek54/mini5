@@ -15,7 +15,6 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 public class SubscribeController {
-
     private final SubscribeService subscribeService;
 
     @PostMapping("/subscribes")
