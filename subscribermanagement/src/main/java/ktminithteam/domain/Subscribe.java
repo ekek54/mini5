@@ -20,7 +20,7 @@ public class Subscribe {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long subscribeId;
 
     private Long subscriberId;
 
@@ -30,6 +30,17 @@ public class Subscribe {
 
     private Date expirationDate;
 
+    private Long cost;
+/**
+@TODO Cost 내용 넣어야함, 현재 cost 필드 null
+*/
+    // @PostPersist
+    // public void onPostPersist() {
+    //     this.setStatus("CHECKING");
+    //     RequestSubscribed requestSubscribed = new RequestSubscribed(this);
+    //     requestSubscribed.publishAfterCommit();
+    // } 
+
     public static SubscribeRepository repository() {
         SubscribeRepository subscribeRepository = SubscribermanagementApplication.applicationContext.getBean(
             SubscribeRepository.class
@@ -37,57 +48,25 @@ public class Subscribe {
         return subscribeRepository;
     }
 
+    
+
     //<<< Clean Arch / Port Method
     public static void subscribeFailure(RejectSubscribe rejectSubscribe) {
-        //implement business logic here:
-
-        /** Example 1:  new item 
-        Subscribe subscribe = new Subscribe();
-        repository().save(subscribe);
-
-        */
-
-        /** Example 2:  finding and process
-        
-
-        repository().findById(rejectSubscribe.get???()).ifPresent(subscribe->{
-            
-            subscribe // do something
+        repository().findById(rejectSubscribe.getId()).ifPresent(subscribe->{
+            subscribe.setStatus("FAILURE");
             repository().save(subscribe);
-
-
-         });
-        */
-
+        });
     }
 
     //>>> Clean Arch / Port Method
     //<<< Clean Arch / Port Method
     public static void subscribeSuccess(Substart substart) {
-        //implement business logic here:
-
-        /** Example 1:  new item 
-        Subscribe subscribe = new Subscribe();
-        repository().save(subscribe);
-
-        SubscribeSucceed subscribeSucceed = new SubscribeSucceed(subscribe);
-        subscribeSucceed.publishAfterCommit();
-        */
-
-        /** Example 2:  finding and process
-        
-
-        repository().findById(substart.get???()).ifPresent(subscribe->{
-            
-            subscribe // do something
+        repository().findById(substart.getId()).ifPresent(subscribe->{
+            subscribe.setStatus("SUCCESS");
+            if (substart.getSubscriptionTicketExpirationDate() != null)
+                subscribe.setExpirationDate(substart.getSubscriptionTicketExpirationDate());
             repository().save(subscribe);
-
-            SubscribeSucceed subscribeSucceed = new SubscribeSucceed(subscribe);
-            subscribeSucceed.publishAfterCommit();
-
-         });
-        */
-
+        });
     }
     //>>> Clean Arch / Port Method
 
