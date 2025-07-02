@@ -21,6 +21,7 @@ public class BookPublished extends AbstractEvent {
     private Long cost;
     private Boolean isAccept;
     private Date createdAt;
+    private String pdfPath;
 
     public BookPublished(Publish aggregate) {
         super(aggregate);
@@ -34,6 +35,7 @@ public class BookPublished extends AbstractEvent {
         this.cost = aggregate.getCost();
         this.isAccept = aggregate.getIsAccept();
         this.createdAt = aggregate.getCreatedAt();
+        this.pdfPath = aggregate.getPdfUrl();
     }
 
     public BookPublished() {

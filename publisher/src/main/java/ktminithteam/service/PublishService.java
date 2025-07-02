@@ -1,7 +1,9 @@
-package ktminithteam.domain;
+package ktminithteam.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import ktminithteam.domain.*;;
 
 @Service
 public class PublishService {

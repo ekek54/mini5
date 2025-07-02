@@ -43,6 +43,9 @@ public class Publish {
 
     private Long authorId;
 
+    @Column(length = 1000)
+    private String pdfUrl;
+
     public void confirm() {
         this.isAccept = true;
         this.createdAt = new Date(); //확정 시점 기록

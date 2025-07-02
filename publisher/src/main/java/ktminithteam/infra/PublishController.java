@@ -1,9 +1,11 @@
 package ktminithteam.infra;
 
+import java.io.IOException;
 import java.util.*;
 import java.util.Optional;
 import javax.transaction.Transactional;
 import ktminithteam.domain.*;
+import ktminithteam.service.PdfService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,19 +18,24 @@ public class PublishController {
     PublishRepository publishRepository;
 
     @Autowired
-    PublishService publishService;
-
-    @Autowired
     OpenAIApiClient aiClient;
 
+    @Autowired
+    PdfService pdfService;
+
     @PutMapping("/{id}/confirm")
-    public void confirmPublish(@PathVariable Long id) {
+    public void confirmPublish(@PathVariable Long id) throws IOException {
         Publish publish = publishRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("출간 정보를 찾을 수 없습니다"));
+
+        //pdf 생성
+        String pdfPath = pdfService.createPdf(publish);
+        publish.setPdfUrl(pdfPath);
 
         publish.confirm(); // 출간 확정 처리 → isAccept=true + 이벤트 발행
         publishRepository.save(publish); // DB에 반영
     }
+
 
     @GetMapping //조회
     public List<Publish> getAllPublishes() {

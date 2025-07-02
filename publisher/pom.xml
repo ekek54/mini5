@@ -107,6 +107,14 @@
 			<version>${cucumber.version}</version>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- iText PDF Generation -->
+		<dependency>
+			<groupId>com.itextpdf</groupId>
+			<artifactId>itext7-core</artifactId>
+			<version>7.1.15</version>
+			<type>pom</type>
+		</dependency>
 	</dependencies>
 
 	<dependencyManagement>

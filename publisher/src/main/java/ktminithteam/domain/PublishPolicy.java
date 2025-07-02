@@ -1,4 +1,4 @@
-package ktminithteam.policy;
+package ktminithteam.domain;
 
 import ktminithteam.domain.*;
 import ktminithteam.domain.PublishRequestedEvent;
